@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="2026 年 9 月 24 日全球要闻，中英文对照、关键词学习与英文朗读。">
+  <title>2026-09-24 全球要闻英语学习</title>
+  <link rel="stylesheet" href="assets/daily-news.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">EN</div>
+        <div class="brand-copy">
+          <strong>全球要闻英语学习</strong>
+          <span id="dateLabel">2026 年 9 月 24 日</span>
+        </div>
+      </div>
+
+      <section class="progress-panel" aria-label="今日学习进度">
+        <div class="progress-head">
+          <strong>今日进度</strong>
+          <span id="progressText">0%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="stat-grid">
+          <div class="stat"><b id="readCount">0</b><span>已读</span></div>
+          <div class="stat"><b id="listenedCount">0</b><span>已听</span></div>
+          <div class="stat"><b id="savedCount">0</b><span>生词</span></div>
+          <div class="stat"><b id="quizBest">0/5</b><span>小测最佳</span></div>
+        </div>
+      </section>
+
+      <section class="side-section" aria-label="新闻分类">
+        <span class="side-label">Topics</span>
+        <div class="filter-list" id="filterList"></div>
+      </section>
+
+      <section class="side-section" aria-label="学习工具">
+        <span class="side-label">Study</span>
+        <div class="side-actions">
+          <button class="side-action" type="button" data-play-all>
+            <i data-lucide="list-music" aria-hidden="true"></i><span>连续朗读</span>
+          </button>
+          <button class="side-action" type="button" data-start-quiz>
+            <i data-lucide="brain" aria-hidden="true"></i><span>词汇小测</span>
+          </button>
+          <button class="side-action" type="button" data-open-wordbook>
+            <i data-lucide="book-marked" aria-hidden="true"></i><span>我的生词本</span><span class="badge-count" id="wordbookCount">0</span>
+          </button>
+          <button class="side-action" type="button" data-reset-progress>
+            <i data-lucide="rotate-ccw" aria-hidden="true"></i><span>重置今日进度</span>
+          </button>
+        </div>
+      </section>
+    </aside>
+
+    <main class="main">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">DAILY GLOBAL BRIEFING · 16 STORIES</p>
+          <h1>今日全球要闻<br>English Edition</h1>
+          <p>国际、政治、财经、科技、科学、健康、气候、体育与娱乐。</p>
+        </div>
+        <div class="mode-control" role="group" aria-label="阅读模式">
+          <button class="mode-btn active" type="button" data-mode="bilingual" aria-pressed="true">双语</button>
+          <button class="mode-btn" type="button" data-mode="english" aria-pressed="false">纯英文</button>
+          <button class="mode-btn" type="button" data-mode="listening" aria-pressed="false">听力填空</button>
+        </div>
+      </header>
+
+      <section class="lead-story" id="leadStory" aria-label="头条新闻"></section>
+
+      <section class="toolbar" aria-label="新闻筛选工具">
+        <label class="field-wrap">
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="searchInput" type="search" placeholder="搜索英文、中文或关键词" autocomplete="off">
+        </label>
+        <select id="levelSelect" aria-label="英语难度">
+          <option value="All">全部难度</option>
+          <option value="B1">B1 中级</option>
+          <option value="B2">B2 中高级</option>
+          <option value="C1">C1 高级</option>
+        </select>
+        <select id="sortSelect" aria-label="新闻排序">
+          <option value="default">默认排序</option>
+          <option value="unread">未读优先</option>
+          <option value="easy">先易后难</option>
+          <option value="hard">先难后易</option>
+        </select>
+        <span class="result-count" id="resultCount">16 / 16 条</span>
+      </section>
+
+      <section class="news-grid" id="newsGrid" aria-live="polite"></section>
+      <div class="empty-state" id="emptyState">没有匹配的新闻。</div>
+    </main>
+  </div>
+
+  <section class="audio-dock" id="audioDock" aria-label="英文朗读播放器">
+    <div class="now-playing">
+      <button class="play-toggle" id="playToggle" type="button" aria-label="播放" title="播放">
+        <i data-lucide="play" aria-hidden="true"></i>
+      </button>
+      <div class="track-copy">
+        <small id="nowMeta">自然美音</small>
+        <strong id="nowTitle">选择一条新闻开始朗读</strong>
+      </div>
+    </div>
+    <div class="timeline">
+      <input id="seekBar" type="range" min="0" max="1000" value="0" aria-label="朗读进度">
+      <div class="time-row"><span id="elapsedTime">0:00</span><span id="totalTime">0:00</span></div>
+    </div>
+    <div class="audio-controls">
+      <button class="icon-btn" id="previousBtn" type="button" title="上一条" aria-label="上一条"><i data-lucide="skip-back" aria-hidden="true"></i></button>
+      <button class="icon-btn" id="nextBtn" type="button" title="下一条" aria-label="下一条"><i data-lucide="skip-forward" aria-hidden="true"></i></button>
+      <select id="voiceSelect" aria-label="选择英文口音" title="高质量系统合成语音，不是人工录音">
+        <option value="us">自然美音 · Samantha</option>
+        <option value="uk">自然英音 · Daniel</option>
+      </select>
+      <select id="rateSelect" aria-label="朗读语速">
+        <option value="0.75">0.75x 慢速</option>
+        <option value="0.9">0.9x 学习</option>
+        <option value="1">1.0x 正常</option>
+        <option value="1.15">1.15x 快速</option>
+      </select>
+      <button class="icon-btn" id="repeatBtn" type="button" aria-pressed="false" title="单条循环" aria-label="单条循环"><i data-lucide="repeat-1" aria-hidden="true"></i></button>
+      <button class="icon-btn" type="button" data-stop-audio title="停止" aria-label="停止"><i data-lucide="square" aria-hidden="true"></i></button>
+    </div>
+  </section>
+
+  <div class="overlay" id="wordOverlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="wordTerm">
+    <section class="modal">
+      <header class="modal-head">
+        <h2>关键词</h2>
+        <button class="icon-btn" type="button" data-close-word title="关闭" aria-label="关闭"><i data-lucide="x" aria-hidden="true"></i></button>
+      </header>
+      <div class="modal-body">
+        <div class="word-hero">
+          <div>
+            <h3 id="wordTerm">word</h3>
+            <p id="wordCn">释义</p>
+          </div>
+          <button class="icon-btn" type="button" data-speak-current-word title="朗读单词" aria-label="朗读单词"><i data-lucide="volume-2" aria-hidden="true"></i></button>
+        </div>
+        <p class="definition" id="wordDefinition"></p>
+        <div class="context-box">
+          <small>NEWS CONTEXT</small>
+          <p id="wordContext"></p>
+        </div>
+        <div class="modal-actions" style="margin-top:16px">
+          <button class="btn primary" id="saveWordBtn" type="button" data-save-current-word><i data-lucide="bookmark-plus" aria-hidden="true"></i><span>加入生词本</span></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="word-drawer" id="wordDrawer" aria-hidden="true" aria-label="我的生词本">
+    <header class="drawer-head">
+      <h2>我的生词本</h2>
+      <button class="icon-btn" type="button" data-close-wordbook title="关闭" aria-label="关闭"><i data-lucide="x" aria-hidden="true"></i></button>
+    </header>
+    <div class="drawer-body" id="drawerList"></div>
+    <footer class="drawer-footer">
+      <button class="btn primary" type="button" data-start-quiz><i data-lucide="brain" aria-hidden="true"></i><span>用生词开始小测</span></button>
+    </footer>
+  </aside>
+
+  <div class="overlay" id="quizOverlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="quizTitle">
+    <section class="modal">
+      <header class="modal-head">
+        <h2 id="quizTitle">今日词汇小测</h2>
+        <button class="icon-btn" type="button" data-close-quiz title="关闭" aria-label="关闭"><i data-lucide="x" aria-hidden="true"></i></button>
+      </header>
+      <div class="modal-body" id="quizBody"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/lucide.min.js"></script>
+  <script src="data/2026-09-24.js"></script>
+  <script src="assets/daily-news.js"></script>
+</body>
+</html>
